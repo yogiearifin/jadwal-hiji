@@ -3,7 +3,7 @@ import { supabase } from "../../config/supabaseClient";
 import { errorHandler } from "../../middleware/errorMiddleware";
 
 export const getAllRanks = async (req: Request, res: Response) => {
-  const { data, error } = await supabase.from("rank").select("*");
+  const { data, error } = await supabase.from("rank").select("*").order("id");
   if (error) {
     errorHandler(error, res);
   }
