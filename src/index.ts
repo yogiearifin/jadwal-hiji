@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import customerRoutes from "./routes/customerRoutes";
 import rankRoutes from "./routes/rankRoutes";
 import cors from "cors";
+import regionRoutes from "./routes/regionRoutes";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use("/customers", customerRoutes);
 app.use("/ranks", rankRoutes);
+app.use("/regions", regionRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hey boss, just want to let you know that I'm out of product");
