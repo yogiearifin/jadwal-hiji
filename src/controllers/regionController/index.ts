@@ -13,3 +13,17 @@ export const getAllRegion = async (req: Request, res: Response) => {
 
   res.json(data);
 };
+
+export const getSingleRegion = async (req: Request, res: Response) => {
+  const { data, error } = await supabase
+    .from("region")
+    .select("*")
+    .eq("id", req.params.id)
+    .single();
+
+  if (error) {
+    errorHandler(error, res);
+  }
+
+  res.json(data);
+};
