@@ -3,7 +3,13 @@ import { supabase } from "../../config/supabaseClient";
 import { errorHandler } from "../../middleware/errorMiddleware";
 
 export const getAllCustomers = async (req: Request, res: Response) => {
-  const { data, error } = await supabase.from("customer").select("*").order("name");
+  const region =
+    typeof req.query.region === "string" ? req.query.region : undefined;
+  const query = supabase.from("customer").select("*").order("name");
+  if (region) {
+    query.eq("region", region);
+  }
+  const { data, error } = await query;
   if (error) {
     errorHandler(error, res);
   }
