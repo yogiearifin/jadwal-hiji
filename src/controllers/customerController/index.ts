@@ -5,7 +5,11 @@ import { errorHandler } from "../../middleware/errorMiddleware";
 export const getAllCustomers = async (req: Request, res: Response) => {
   const region =
     typeof req.query.region === "string" ? req.query.region : undefined;
+  const name = typeof req.query.name === "string" ? req.query.name : undefined;
   const query = supabase.from("customer").select("*").order("name");
+  if (name) {
+    query.ilike("name", `%${name}%`);
+  }
   if (region) {
     query.eq("region", region);
   }
